@@ -1,0 +1,132 @@
+/* gestorx.css */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #0f172a;
+    color: #fff;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 220px;
+    background-color: #1e293b;
+    padding: 20px;
+}
+
+/* LOGO */
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 10px;
+}
+
+.logo img {
+    width: 160px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* LINKS DA SIDEBAR */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin: 15px 0;
+    cursor: pointer;
+    color: #cbd5e1;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* ANIMAÇÃO HOVER */
+.sidebar li:hover {
+    color: #38bdf8;
+    text-shadow: 0 0 10px #38bdf8, 0 0 20px #38bdf8;
+    transform: translateX(5px);
+}
+
+/* LINK ATIVO */
+.sidebar .active {
+    color: #38bdf8;
+    font-weight: bold;
+}
+
+.content {
+    flex: 1;
+    padding: 30px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logout {
+    background-color: #1e293b;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.cards {
+    display: flex;
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.card {
+    background-color: #1e293b;
+    padding: 20px;
+    border-radius: 8px;
+    flex: 1;
+    text-align: center;
+}
+
+.card span {
+    color: #94a3b8;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.card strong {
+    font-size: 24px;
+}
+
+.movimentacoes h2 {
+    margin-bottom: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead th {
+    text-align: left;
+    padding: 10px;
+    background-color: #1e293b;
+    color: #94a3b8;
+}
+
+tbody td {
+    padding: 10px;
+    border-bottom: 1px solid #334155;
+}
+
+.entrada {
+    color: #38bdf8;
+}
+
+.saida {
+    color: #f87171;
+}
