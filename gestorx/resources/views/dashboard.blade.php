@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GestorX - Dashboard</title>
-    <link rel="stylesheet" href="gestorx.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
 </head>
 
 <body>
@@ -14,7 +14,7 @@
         <!-- SIDEBAR -->
         <aside class="sidebar">
             <div class="logo">
-                <img src="logo_gestorx.png" alt="GestorX Logo" />
+                <img src="images/logo_gestorx.png" alt="GestorX Logo" />
             </div>
             <nav>
                 <ul>

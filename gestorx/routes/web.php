@@ -17,6 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dasboard' , function () {
-    return view('dasboard');
-});
+Route::get('/dashboard' , function () {
+    return view('dashboard');
+})->name('dashboard');
+Route::get('/cad' , function () {
+    return view('produtos.create');
+})->name('produtos.create');
