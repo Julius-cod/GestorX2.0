@@ -1,58 +1,61 @@
-<!-- resources/views/produtos/create.blade.php -->
-@extends('layouts.app')
-
-@section('content')
-<link rel="stylesheet" href="/css/produtos.css">
-<div class="form-container">
-    <header class="form-header">
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Cadastrar Produto</title>
+    <link rel="stylesheet" href="{{ asset('css/produtos.css') }}">
+</head>
+<body>
+    <header class="topbar">
         <h1>Cadastrar Produto</h1>
-        <button class="logout">Logout</button>
+        <a class="btn" href="{{ route('produtos.index') }}">Voltar</a>
     </header>
 
-    <form class="form-produto" action="#" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div class="form-group image-upload">
-            <label for="imagem">Imagem do Produto</label>
-            <input type="file" id="imagem" name="imagem">
-        </div>
-
-        <div class="form-grid">
-            <div class="form-group">
-                <label for="nome">Nome</label>
-                <input type="text" id="nome" name="nome" placeholder="Ex: Coca Cola">
+    <main class="form-wrap">
+        @if($errors->any())
+            <div class="errors">
+                <ul>
+                    @foreach($errors->all() as $e)
+                        <li>{{ $e }}</li>
+                    @endforeach
+                </ul>
             </div>
+        @endif
 
-            <div class="form-group">
-                <label for="descricao">Descrição</label>
-                <input type="text" id="descricao" name="descricao" placeholder="Ex: Refrigerante de 350ml">
-            </div>
+        <form action="{{ route('produtos.store') }}" method="POST" enctype="multipart/form-data" class="form-produto">
+            @csrf
+            <label>Imagem
+                <input type="file" name="imagem" accept="image/*">
+            </label>
 
-            <div class="form-group">
-                <label for="categoria">Categoria</label>
-                <select id="categoria" name="categoria">
-                    <option value="bebidas">Bebidas</option>
-                    <option value="alimentos">Alimentos</option>
-                    <option value="limpeza">Limpeza</option>
-                </select>
-            </div>
+            <label>Nome
+                <input type="text" name="nome" value="{{ old('nome') }}" required>
+            </label>
 
-            <div class="form-group">
-                <label for="fornecedor">Fornecedor</label>
-                <input type="text" id="fornecedor" name="fornecedor" placeholder="Ex: Distribuidora X">
-            </div>
+            <label>Descrição
+                <textarea name="descricao">{{ old('descricao') }}</textarea>
+            </label>
 
-            <div class="form-group">
-                <label for="quantidade">Quantidade Inicial</label>
-                <input type="number" id="quantidade" name="quantidade" placeholder="500">
-            </div>
+           <label for="categoria_id">Categoria:</label>
+            <select name="categoria_id" id="categoria_id" required>
+                <option value="">-- Selecione --</option>
+                @foreach($categorias as $categoria)
+                    <option value="{{ $categoria->id }}">{{ $categoria->nome }}</option>
+                 @endforeach
+            </select>
 
-            <div class="form-group">
-                <label for="preco">Preço Unitário</label>
-                <input type="text" id="preco" name="preco" placeholder="R$ 3,00">
-            </div>
-        </div>
 
-        <button type="submit" class="btn-submit">Cadastrar</button>
-    </form>
-</div>
-@endsection
+            <label>Quantidade
+                <input type="number" name="quantidade" value="{{ old('quantidade', 0) }}" min="0" required>
+            </label>
+
+            <label>Preço (ex: 10.50)
+                <input type="text" name="preco" value="{{ old('preco', '0.00') }}" required>
+            </label>
+
+            <button type="submit" class="btn primary">Salvar</button>
+        </form>
+    </main>
+</body>
+</html>

@@ -1,55 +1,33 @@
-.form-container {
-    background-color: #0f172a;
-    color: #fff;
-    padding: 30px;
-    border-radius: 8px;
+/* Reset simples */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #0f172a;
+  color: #e6eef8;
+  padding: 20px;
 }
+.topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; }
+.topbar h1 { margin:0; font-size:20px; }
+.btn { background:#2563eb; color:#fff; padding:8px 12px; text-decoration:none; border-radius:6px; }
+.cards { display:flex; gap:16px; margin-bottom:18px; }
+.card { background:#1e293b; padding:18px; border-radius:8px; flex:1; text-align:center; }
+.card span { color:#94a3b8; display:block; margin-bottom:8px; }
+.card strong { font-size:22px; }
 
-.form-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.form-produto {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-group label {
-    font-size: 14px;
-    margin-bottom: 5px;
-    color: #94a3b8;
-}
-
-.form-group input,
-.form-group select {
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    background: #1e293b;
-    color: #fff;
-}
-
-.btn-submit {
-    padding: 12px;
-    border: none;
-    border-radius: 6px;
-    background-color: #2563eb;
-    color: #fff;
-    cursor: pointer;
-    font-weight: bold;
-}
+table { width:100%; border-collapse:collapse; background:#0b1220; border-radius:8px; overflow:hidden; }
+thead th { text-align:left; padding:12px; background:#1e293b; color:#94a3b8; }
+tbody td { padding:12px; border-bottom:1px solid #111827; }
+.thumb { width:50px; height:50px; object-fit:cover; border-radius:6px; }
+.thumb-large { width:200px; height:auto; object-fit:cover; border-radius:8px; display:block; margin-bottom:12px; }
+.form-wrap { background:#071020; padding:18px; border-radius:8px; max-width:900px; }
+.form-produto label { display:block; margin-bottom:12px; color:#cbd5e1; }
+.form-produto input[type="text"],
+.form-produto input[type="number"],
+.form-produto textarea,
+.form-produto select { width:100%; padding:10px; background:#0b1220; border:1px solid #172033; color:#fff; border-radius:6px; }
+.form-produto textarea { min-height:80px; }
+.btn.primary { background:#10b981; }
+.errors { background:#3b1f1f; color:#ffdede; padding:10px; margin-bottom:12px; border-radius:6px; }
+.link-like { background:none; border:none; color:#60a5fa; cursor:pointer; text-decoration:underline; padding:0; }
+.acoes a { margin-right:8px; color:#60a5fa; text-decoration:none; }
