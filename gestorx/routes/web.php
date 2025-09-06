@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\MovimentacaoController;
 use App\Http\Controllers\CategoriaController;
-
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RelatorioController;
 
 // todas as rotas : 
 
@@ -33,3 +35,22 @@ Route::post('/categorias', [CategoriaController::class, 'store'])->name('categor
 Route::get('/categorias/{id}/edit', [CategoriaController::class, 'edit'])->name('categorias.edit');
 Route::put('/categorias/{id}', [CategoriaController::class, 'update'])->name('categorias.update');
 Route::delete('/categorias/{id}', [CategoriaController::class, 'destroy'])->name('categorias.destroy');
+
+// ROTAS DE CADASTRO  , LOGIN, LOGOUT
+
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register.form');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login.form');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// ROTA PARA DASHBOARD
+
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware('auth')
+    ->name('dashboard');
+
+//ROTA DE RELATORIOS
+Route::get('/relatorios', [RelatorioController::class, 'index'])->name('relatorios.index');
