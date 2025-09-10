@@ -8,11 +8,22 @@ use Illuminate\Http\Request;
 
 class MovimentacaoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $movimentacoes = Movimentacao::with('produto')->latest()->get();
-        return view('movimentacoes.index', compact('movimentacoes'));
+    $query = Movimentacao::with('produto');
+
+    // Pesquisa por nome do produto
+    if ($request->filled('search')) {
+        $query->whereHas('produto', function ($q) use ($request) {
+            $q->where('nome', 'like', '%' . $request->search . '%');
+        });
     }
+
+    $movimentacoes = $query->latest()->get();
+
+    return view('movimentacoes.index', compact('movimentacoes'));
+}
+
 
     public function create()
     {

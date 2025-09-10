@@ -45,6 +45,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/categorias/{id}/edit', [CategoriaController::class, 'edit'])->name('categorias.edit');
         Route::put('/categorias/{id}', [CategoriaController::class, 'update'])->name('categorias.update');
         Route::delete('/categorias/{id}', [CategoriaController::class, 'destroy'])->name('categorias.destroy');
+        Route::get('/relatorios/estoque/pdf', [RelatorioController::class, 'estoquePdf'])->middleware('auth')->name('relatorios.estoque.pdf');
+        Route::get('/relatorios/movimentacoes/csv', [RelatorioController::class, 'movimentacoesCsv'])->middleware('auth')->name('relatorios.movimentacoes.csv');
+        Route::get('/relatorios/movimentacoes/pdf', [RelatorioController::class, 'movimentacoesPdf'])->middleware('auth')->name('relatorios.movimentacoes.pdf');
+
     });
 
     // MOVIMENTAÇÕES (admin, gestor e operador)

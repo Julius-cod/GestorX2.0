@@ -23,6 +23,25 @@
         </div>
     </section>
 
+    <!-- 🔍 Pesquisa e Filtros -->
+    <section class="filtros">
+        <form method="GET" action="{{ route('produtos.index') }}">
+            <input type="text" name="nome" placeholder="Buscar por nome" value="{{ request('nome') }}">
+
+            <select name="categoria_id">
+                <option value="">Todas categorias</option>
+                @foreach($categorias as $cat)
+                    <option value="{{ $cat->id }}" {{ request('categoria_id') == $cat->id ? 'selected' : '' }}>
+                        {{ $cat->nome }}
+                    </option>
+                @endforeach
+            </select>
+
+            <button type="submit">Filtrar</button>
+            <a href="{{ route('produtos.index') }}" class="btn-reset">Limpar</a>
+        </form>
+    </section>
+
     <section class="lista">
         @if(session('success'))
             <div class="alert">{{ session('success') }}</div>
@@ -67,10 +86,11 @@
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="7">Nenhum produto cadastrado.</td></tr>
+                    <tr><td colspan="7">Nenhum produto encontrado.</td></tr>
                 @endforelse
             </tbody>
         </table>
     </section>
 </body>
 </html>
+

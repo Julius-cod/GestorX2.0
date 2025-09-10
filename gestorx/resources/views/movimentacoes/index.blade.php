@@ -15,6 +15,12 @@
 
         <a href="{{ route('movimentacoes.create') }}" class="btn">Nova Movimentação</a>
 
+        <!-- 🔍 Barra de pesquisa -->
+        <form method="GET" action="{{ route('movimentacoes.index') }}" class="search-form">
+            <input type="text" name="search" value="{{ request('search') }}" placeholder="Buscar por produto...">
+            <button type="submit">Pesquisar</button>
+        </form>
+
         <table>
             <thead>
                 <tr>

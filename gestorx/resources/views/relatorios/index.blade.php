@@ -2,169 +2,155 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GestorX - Relatórios</title>
-    <link rel="stylesheet" href="{{ asset('css/gestorx.css') }}">
+    <title>Relatórios - GestorX</title>
     <style>
-        /* Estilização dos cards */
-        .cards-resumo {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .cards-resumo .card {
-            background: #1e293b;
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8fafc;
+            margin: 0;
             padding: 20px;
-            border-radius: 12px;
+        }
+        h1 {
             text-align: center;
-            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            color: #1e293b;
         }
-
-        .cards-resumo h3 {
-            font-size: 16px;
-            color: #94a3b8;
-            margin-bottom: 10px;
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
         }
-
-        .cards-resumo p {
-            font-size: 20px;
-            font-weight: bold;
-            color: #38bdf8;
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
-
-        /* Estilização dos gráficos */
-        .chart-container {
+        .card h2 {
+            margin: 0;
+            font-size: 28px;
+            color: #0ea5e9;
+        }
+        .card p {
+            margin: 5px 0 0;
+            color: #475569;
+        }
+        table {
             width: 100%;
-            max-width: 600px;
-            height: 350px;
-            margin: 0 auto;
-            background: #1e293b;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            border-collapse: collapse;
+            margin-bottom: 40px;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
-
-        .chart-container h2 {
-            text-align: center;
-            margin-bottom: 15px;
-            color: #94a3b8;
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: left;
         }
-
-        .charts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+        th {
+            background: #0ea5e9;
+            color: #fff;
+        }
+        tr:hover {
+            background: #f1f5f9;
+        }
+        .entrada {
+            color: green;
+            font-weight: bold;
+        }
+        .saida {
+            color: red;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- SIDEBAR -->
-        <aside class="sidebar">
-            <div class="logo">
-                <img src="{{ asset('images/logo_gestorx.png') }}" alt="GestorX Logo">
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                    <li><a href="{{ route('produtos.index') }}">Produtos</a></li>
-                    <li><a href="{{ route('movimentacoes.index') }}">Movimentações</a></li>
-                    <li class="active"><a href="{{ route('relatorios.index') }}">Relatórios</a></li>
-                    <li><a href="#">Configurações</a></li>
-                </ul>
-            </nav>
-        </aside>
+    <h1>Relatórios de Estoque</h1>
 
-        <!-- CONTEÚDO -->
-        <main class="content">
-            <header>
-                <h1>Relatórios</h1>
-                <button class="logout">Sair</button>
-            </header>
+    <!-- Cards resumo -->
+    <div class="cards">
+        <div class="card">
+            <h2>{{ $totalProdutos }}</h2>
+            <p>Total de Produtos</p>
+        </div>
+        <div class="card">
+            <h2>{{ $estoqueTotal }}</h2>
+            <p>Estoque Total</p>
+        </div>
+        <div class="card">
+            <h2>{{ $entradasMes }}</h2>
+            <p>Entradas (Mês)</p>
+        </div>
+        <div class="card">
+            <h2>{{ $saidasMes }}</h2>
+            <p>Saídas (Mês)</p>
+        </div>
+        <a href="{{ route('relatorios.estoque.pdf') }}" class="btn">Exportar Estoque (PDF)</a>
+        <a href="{{ route('relatorios.movimentacoes.csv') }}" class="btn">Exportar Movimentações (CSV)</a>
+        <a href="{{ route('relatorios.movimentacoes.pdf') }}" class="btn">Exportar Movimentações (PDF)</a>
 
-            <!-- CARDS DE RESUMO -->
-            <section class="cards-resumo">
-                <div class="card">
-                    <h3>Total Produtos</h3>
-                    <p>{{ $totalProdutos }}</p>
-                </div>
-                <div class="card">
-                    <h3>Total Entradas</h3>
-                    <p>{{ $entradas }}</p>
-                </div>
-                <div class="card">
-                    <h3>Total Saídas</h3>
-                    <p>{{ $saidas }}</p>
-                </div>
-                <div class="card">
-                    <h3>Valor em Estoque</h3>
-                    <p>R$ {{ number_format($valorEstoque, 2, ',', '.') }}</p>
-                </div>
-            </section>
-
-            <!-- GRÁFICOS -->
-            <div class="charts-grid">
-                <section class="chart-container">
-                    <h2>Estoque por Produto</h2>
-                    <canvas id="estoqueChart"></canvas>
-                </section>
-
-                <section class="chart-container">
-                    <h2>Entradas vs Saídas</h2>
-                    <canvas id="movimentacoesChart"></canvas>
-                </section>
-            </div>
-        </main>
     </div>
 
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        // Dados enviados pelo Controller
-        const produtos = @json($produtos->pluck('nome'));
-        const quantidades = @json($produtos->pluck('quantidade'));
-        const entradas = {{ $entradas }};
-        const saidas = {{ $saidas }};
+    <!-- Produtos com baixo estoque -->
+    <h2>Produtos com baixo estoque</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($baixoEstoque as $produto)
+                <tr>
+                    <td>{{ $produto->nome }}</td>
+                    <td>{{ $produto->quantidade }}</td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="2">Nenhum produto com baixo estoque.</td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
 
-        // Gráfico de barras - Estoque por produto
-        const ctx1 = document.getElementById('estoqueChart').getContext('2d');
-        new Chart(ctx1, {
-            type: 'bar',
-            data: {
-                labels: produtos,
-                datasets: [{
-                    label: 'Quantidade em estoque',
-                    data: quantidades,
-                    backgroundColor: '#38bdf8'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: { y: { beginAtZero: true } }
-            }
-        });
-
-        // Gráfico de pizza - Entradas vs Saídas
-        const ctx2 = document.getElementById('movimentacoesChart').getContext('2d');
-        new Chart(ctx2, {
-            type: 'pie',
-            data: {
-                labels: ['Entradas', 'Saídas'],
-                datasets: [{
-                    data: [entradas, saidas],
-                    backgroundColor: ['#38bdf8', '#f87171']
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false
-            }
-        });
-    </script>
+    <!-- Movimentações do mês -->
+    <h2>Movimentações do mês</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Produto</th>
+                <th>Tipo</th>
+                <th>Quantidade</th>
+                <th>Usuário</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($movimentacoesMes as $mov)
+                <tr>
+                    <td>{{ $mov->created_at->format('d/m/Y H:i') }}</td>
+                    <td>{{ $mov->produto->nome ?? 'Desconhecido' }}</td>
+                    <td>
+                        @if ($mov->tipo === 'entrada')
+                            <span class="entrada">Entrada</span>
+                        @else
+                            <span class="saida">Saída</span>
+                        @endif
+                    </td>
+                    <td>{{ $mov->quantidade }}</td>
+                    <td>{{ $mov->usuario->name ?? 'Usuário desconhecido' }}</td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="5">Nenhuma movimentação registrada neste mês.</td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
 </body>
 </html>

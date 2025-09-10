@@ -11,15 +11,34 @@ use Illuminate\Support\Facades\Storage;
 class ProdutoController extends Controller
 {
     //Listar + Numeros (total de produtos, estoque total)
-    public function index()
-    {
-        $totalProdutos = Produto::count();
-        $estoqueTotal = Produto::sum('quantidade');
-        $produtos = Produto::with('categoria')->orderBy('id', 'desc')->get();
+   public function index(Request $request)
+{
+    $query = Produto::with('categoria');
 
-        return view('produtos.index', compact('produtos', 'totalProdutos', 'estoqueTotal' ));
-
+    // Filtro por nome
+    if ($request->filled('nome')) {
+        $query->where('nome', 'like', '%' . $request->nome . '%');
     }
+
+    // Filtro por categoria
+    if ($request->filled('categoria_id')) {
+        $query->where('categoria_id', $request->categoria_id);
+    }
+
+    $produtos = $query->orderBy('id', 'desc')->get();
+
+    $totalProdutos = Produto::count();
+    $estoqueTotal = Produto::sum('quantidade');
+    $categorias = \App\Models\Categoria::all();
+
+    return view('produtos.index', compact(
+        'produtos',
+        'totalProdutos',
+        'estoqueTotal',
+        'categorias'
+    ));
+}
+
 
     //Formularo de criacao
     public function create()
