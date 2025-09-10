@@ -106,6 +106,14 @@ class ProdutoController extends Controller
         return redirect()->route('produtos.index')->with('success', 'Produto excluído.');
     }
 
+    //historico dos produtos
+    public function historico($id)
+    {
+        $produto = Produto::with('movimentacoes')->findOrFail($id);
+
+        return view('produtos.historico', compact('produto'));      
+    }
+
 
 
 

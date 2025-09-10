@@ -26,9 +26,11 @@ class MovimentacaoController extends Controller
         'produto_id' => 'required|exists:produtos,id',
         'tipo' => 'required|in:entrada,saida',
         'quantidade' => 'required|integer|min:1',
-    ]);
 
+    ]);
+      $data['user_id'] = auth()->id();
     $produto = Produto::findOrFail($data['produto_id']);
+
 
     if ($data['tipo'] === 'saida') {
         // Verifica estoque antes de retirar

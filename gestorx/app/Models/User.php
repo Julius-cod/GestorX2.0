@@ -24,6 +24,10 @@ class User extends Authenticatable
         'role',
 
     ];
+    public function movimentacoes()
+    {
+     return $this->hasMany(Movimentacao::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -33,6 +37,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+
 
 }
 
