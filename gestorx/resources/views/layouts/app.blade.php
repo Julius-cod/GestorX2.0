@@ -40,8 +40,12 @@
 
                     </li>
                      <li class="{{ request()->routeIs('categorias.*') ? 'active' : '' }}">
-                        <i data-lucide="file-text"></i>
+                        <i data-lucide="folder"></i>
                         <a href="{{ route('categorias.index') }}">Categorias</a>
+                    </li>
+                     <li class="{{ request()->routeIs('categorias.*') ? 'active' : '' }}">
+                        <i data-lucide="settings"></i>
+                        <a href="#">Configuracoes</a>
                     </li>
                 </ul>
             </nav>

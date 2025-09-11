@@ -2,18 +2,19 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>GestorX - Criar Conta</title>
+    <title>GestorX - Registrar</title>
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
 </head>
-<body>
-    <div class="auth-container">
-        <!-- Logo / Nome do Sistema -->
-        <div class="auth-header">
-            <h1 class="logo">GestorX</h1>
-            <p class="subtitle">Crie sua conta</p>
-        </div>
+<body class="dark-bg">
+    <div class="login-container">
+    <div class="logo-area">
+    <img src="{{ asset('images/logo.png') }}" alt="GestorX Logo" class="logo-icon">
+    <h1 class="logo-text">GestorX</h1>
+ 
+</div>
 
-        <!-- Mensagens de erro -->
+        <h2 class="login-title">Registrar</h2>
+
         @if ($errors->any())
             <div class="error-box">
                 <ul>
@@ -24,29 +25,19 @@
             </div>
         @endif
 
-        <!-- Formulário de Registro -->
-        <form method="POST" action="{{ route('register') }}" class="auth-form">
+        <form method="POST" action="{{ route('register') }}" class="login-form">
             @csrf
-            <div class="form-group">
-                <input type="text" name="name" placeholder="Nome completo" required>
-            </div>
-            <div class="form-group">
-                <input type="email" name="email" placeholder="Email" required>
-            </div>
-            <div class="form-group">
-                <input type="password" name="password" placeholder="Senha" required>
-            </div>
-            <div class="form-group">
-                <input type="password" name="password_confirmation" placeholder="Confirmar senha" required>
-            </div>
-            <button type="submit" class="btn-primary">Registrar</button>
+            <input type="text" name="name" placeholder="Nome completo" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Senha" required>
+            <input type="password" name="password_confirmation" placeholder="Confirmar senha" required>
+            <button type="submit">Registrar</button>
         </form>
 
-        <!-- Link para login -->
-        <div class="auth-footer">
-            <p>Já tem conta? <a href="{{ route('login') }}">Entrar</a></p>
+        <div class="register-link">
+            <span>Já tem conta?</span>
+            <a href="{{ route('login') }}">Entrar</a>
         </div>
     </div>
 </body>
 </html>
-

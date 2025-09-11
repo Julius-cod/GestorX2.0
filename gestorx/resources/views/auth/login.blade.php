@@ -5,15 +5,15 @@
     <title>GestorX - Login</title>
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
 </head>
-<body>
-    <div class="auth-container">
-        <!-- Logo / Nome do Sistema -->
-        <div class="auth-header">
-            <h1 class="logo">GestorX</h1>
-            <p class="subtitle">Acesse sua conta</p>
+<body class="dark-bg">
+    <div class="login-container">
+        <div class="logo-area">
+            <img src="{{ asset('images/logo.png') }}" alt="GestorX Logo" class="logo-icon">
+            <h1 class="logo-text">GestorX</h1>
         </div>
 
-        <!-- Mensagens de erro -->
+        <h2 class="login-title">Login</h2>
+
         @if ($errors->any())
             <div class="error-box">
                 <ul>
@@ -24,21 +24,16 @@
             </div>
         @endif
 
-        <!-- Formulário de Login -->
-        <form method="POST" action="{{ route('login') }}" class="auth-form">
+        <form method="POST" action="{{ route('login') }}" class="login-form">
             @csrf
-            <div class="form-group">
-                <input type="email" name="email" placeholder="Email" required>
-            </div>
-            <div class="form-group">
-                <input type="password" name="password" placeholder="Senha" required>
-            </div>
-            <button type="submit" class="btn-primary">Entrar</button>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Senha" required>
+            <button type="submit">Entrar</button>
         </form>
 
-        <!-- Link para criar conta -->
-        <div class="auth-footer">
-            <p>Não tem conta? <a href="{{ route('register') }}">Criar conta</a></p>
+        <div class="register-link">
+            <span>Não possui conta?</span>
+            <a href="{{ route('register') }}">Registrar</a>
         </div>
     </div>
 </body>
