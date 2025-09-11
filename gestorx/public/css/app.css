@@ -1,0 +1,180 @@
+/* ================================
+   VARIÁVEIS DE TEMA
+================================ */
+body.dark {
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --text-color: #f1f5f9;
+}
+
+body.light {
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-color: #0f172a;
+}
+
+/* ================================
+   RESET & BASE
+================================ */
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    transition: background 0.3s, color 0.3s;
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ================================
+   SIDEBAR
+================================ */
+.sidebar {
+    width: 240px;
+    background: #1e293b;
+    /* fixa escura */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+    padding: 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: white;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar nav {
+    flex: 1;
+    padding: 1rem 0;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar nav li {
+    margin: 0.2rem 0.8rem;
+    border-radius: 8px;
+}
+
+.sidebar nav a {
+    display: block;
+    padding: 0.9rem 1rem;
+    text-decoration: none;
+    color: #fff;
+    transition: background 0.3s;
+}
+
+.sidebar nav li.active a,
+.sidebar nav a:hover {
+    background: rgba(59, 130, 246, 0.25);
+    border-left: 4px solid #3b82f6;
+    padding-left: 0.8rem;
+}
+
+/* Footer */
+.sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.sidebar-footer p {
+    margin: 0 0 0.5rem 0;
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.sidebar-footer button {
+    width: 100%;
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.sidebar-footer button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ================================
+   CONTENT
+================================ */
+.content {
+    margin-left: 240px;
+    flex: 1;
+    padding: 2rem;
+}
+
+/* ================================
+   BOTÃO DARK/LIGHT
+================================ */
+.theme-toggle {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+#toggleThemeBtn {
+    background: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#toggleThemeBtn:hover {
+    background: #3b82f6;
+    color: white;
+}
+
+/* ================================
+   CARDS
+================================ */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    transition: background 0.3s;
+}
+
+.card span {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.card strong {
+    display: block;
+    font-size: 1.6rem;
+    margin-top: 0.5rem;
+}

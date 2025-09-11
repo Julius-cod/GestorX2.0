@@ -1,61 +1,74 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Cadastrar Produto</title>
-    <link rel="stylesheet" href="{{ asset('css/produtos.css') }}">
-</head>
-<body>
-    <header class="topbar">
-        <h1>Cadastrar Produto</h1>
-        <a class="btn" href="{{ route('produtos.index') }}">Voltar</a>
-    </header>
+@extends('layouts.app')
 
-    <main class="form-wrap">
-        @if($errors->any())
-            <div class="errors">
-                <ul>
-                    @foreach($errors->all() as $e)
-                        <li>{{ $e }}</li>
-                    @endforeach
-                </ul>
+@section('title', 'Novo Produto')
+
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/produtos.css') }}">
+@endpush
+
+@section('content')
+<header class="topbar">
+    <h1>➕ Novo Produto</h1>
+    <a href="{{ route('produtos.index') }}" class="btn-secondary">← Voltar</a>
+</header>
+
+<section class="form-container">
+    @if ($errors->any())
+        <div class="alert danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form action="{{ route('produtos.store') }}" method="POST" enctype="multipart/form-data" class="produto-form">
+        @csrf
+
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="nome">Nome do Produto</label>
+                <input type="text" name="nome" id="nome" value="{{ old('nome') }}" required>
             </div>
-        @endif
 
-        <form action="{{ route('produtos.store') }}" method="POST" enctype="multipart/form-data" class="form-produto">
-            @csrf
-            <label>Imagem
-                <input type="file" name="imagem" accept="image/*">
-            </label>
+            <div class="form-group">
+                <label for="categoria_id">Categoria</label>
+                <select name="categoria_id" id="categoria_id" required>
+                    <option value="">Selecione</option>
+                    @foreach($categorias as $cat)
+                        <option value="{{ $cat->id }}" {{ old('categoria_id') == $cat->id ? 'selected' : '' }}>
+                            {{ $cat->nome }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
 
-            <label>Nome
-                <input type="text" name="nome" value="{{ old('nome') }}" required>
-            </label>
+            <div class="form-group">
+                <label for="quantidade">Quantidade</label>
+                <input type="number" name="quantidade" id="quantidade" value="{{ old('quantidade') }}" min="0" required>
+            </div>
 
-            <label>Descrição
-                <textarea name="descricao">{{ old('descricao') }}</textarea>
-            </label>
+            <div class="form-group">
+                <label for="preco">Preço (R$)</label>
+                <input type="number" step="0.01" name="preco" id="preco" value="{{ old('preco') }}" required>
+            </div>
 
-           <label for="categoria_id">Categoria:</label>
-            <select name="categoria_id" id="categoria_id" required>
-                <option value="">-- Selecione --</option>
-                @foreach($categorias as $categoria)
-                    <option value="{{ $categoria->id }}">{{ $categoria->nome }}</option>
-                 @endforeach
-            </select>
+            <div class="form-group full-width">
+                <label for="descricao">Descrição</label>
+                <textarea name="descricao" id="descricao" rows="4">{{ old('descricao') }}</textarea>
+            </div>
 
+            <div class="form-group full-width">
+                <label for="imagem">Imagem do Produto</label>
+                <input type="file" name="imagem" id="imagem" accept="image/*">
+            </div>
+        </div>
 
-            <label>Quantidade
-                <input type="number" name="quantidade" value="{{ old('quantidade', 0) }}" min="0" required>
-            </label>
-
-            <label>Preço (ex: 10.50)
-                <input type="text" name="preco" value="{{ old('preco', '0.00') }}" required>
-            </label>
-
-            <button type="submit" class="btn primary">Salvar</button>
-        </form>
-    </main>
-</body>
-</html>
+        <div class="form-actions">
+            <button type="submit" class="btn-primary">💾 Salvar</button>
+            <a href="{{ route('produtos.index') }}" class="btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</section>
+@endsection

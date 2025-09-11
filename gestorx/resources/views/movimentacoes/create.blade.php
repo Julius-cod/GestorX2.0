@@ -1,48 +1,50 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <title>GestorX - Nova Movimentação</title>
-    <link rel="stylesheet" href="{{ asset('css/movimentacoes.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h1>Nova Movimentação</h1>
+@extends('layouts.app')
 
-        @if ($errors->any())
-            <div class="error">
-                <ul>
-                    @foreach ($errors->all() as $erro)
-                        <li>{{ $erro }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+@section('title', 'GestorX - Nova Movimentação')
 
-        <form action="{{ route('movimentacoes.store') }}" method="POST">
-            @csrf
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/movimentacoes.css') }}">
+@endpush
 
-            <label for="produto_id">Produto:</label>
-            <select name="produto_id" id="produto_id" required>
-                <option value="">Selecione um produto</option>
-                @foreach($produtos as $produto)
-                    <option value="{{ $produto->id }}">{{ $produto->nome }}</option>
+@section('content')
+<div class="form-container">
+    <h1 class="form-title">Nova Movimentação</h1>
+
+    {{-- Exibição de erros --}}
+    @if ($errors->any())
+        <div class="error-box">
+            <ul>
+                @foreach ($errors->all() as $erro)
+                    <li>{{ $erro }}</li>
                 @endforeach
-            </select>
+            </ul>
+        </div>
+    @endif
 
-            <label for="tipo">Tipo:</label>
-            <select name="tipo" id="tipo" required>
-                <option value="entrada">Entrada</option>
-                <option value="saida">Saída</option>
-            </select>
+    <form action="{{ route('movimentacoes.store') }}" method="POST" class="form-mov">
+        @csrf
 
-            <label for="quantidade">Quantidade:</label>
-            <input type="number" name="quantidade" id="quantidade" min="1" required>
+        <label for="produto_id">Produto</label>
+        <select name="produto_id" id="produto_id" required>
+            <option value="">Selecione um produto</option>
+            @foreach($produtos as $produto)
+                <option value="{{ $produto->id }}">{{ $produto->nome }}</option>
+            @endforeach
+        </select>
 
-            <button type="submit" class="btn">Registrar</button>
-        </form>
+        <label for="tipo">Tipo</label>
+        <select name="tipo" id="tipo" required>
+            <option value="entrada">Entrada</option>
+            <option value="saida">Saída</option>
+        </select>
 
-        <a href="{{ route('movimentacoes.index') }}" class="btn back">Voltar</a>
-    </div>
-</body>
-</html>
+        <label for="quantidade">Quantidade</label>
+        <input type="number" name="quantidade" id="quantidade" min="1" required>
+
+        <div class="form-actions">
+            <a href="{{ route('movimentacoes.index') }}" class="btn btn-secondary">Voltar</a>
+            <button type="submit" class="btn btn-primary">Registrar</button>
+        </div>
+    </form>
+</div>
+@endsection

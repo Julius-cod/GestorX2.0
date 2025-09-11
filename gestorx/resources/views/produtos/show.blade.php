@@ -1,27 +1,33 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Produto — {{ $produto->nome }}</title>
-    <link rel="stylesheet" href="{{ asset('css/produtos.css') }}">
-</head>
-<body>
-    <header class="topbar">
-        <h1>{{ $produto->nome }}</h1>
-        <a class="btn" href="{{ route('produtos.index') }}">Voltar</a>
-    </header>
+@extends('layouts.app')
 
-    <main class="detalhe">
-        @if($produto->imagem)
+@section('title', 'Produto — ' . $produto->nome)
+
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/produtos.css') }}">
+@endpush
+
+@section('content')
+<div class="page-header">
+    <h1>{{ $produto->nome }}</h1>
+    <a class="btn back-btn" href="{{ route('produtos.index') }}">← Voltar</a>
+</div>
+
+<div class="card produto-detalhe">
+    @if($produto->imagem)
+        <div class="image-container">
             <img src="{{ asset('storage/'.$produto->imagem) }}" alt="{{ $produto->nome }}" class="thumb-large">
-        @endif
+        </div>
+    @endif
 
+    <div class="info">
         <p><strong>Categoria:</strong> {{ $produto->categoria?->nome ?? '-' }}</p>
         <p><strong>Quantidade:</strong> {{ $produto->quantidade }}</p>
         <p><strong>Preço:</strong> R$ {{ number_format($produto->preco,2,',','.') }}</p>
-        <p><strong>Descrição:</strong></p>
-        <p>{{ $produto->descricao }}</p>
-    </main>
-</body>
-</html>
+        @if($produto->descricao)
+            <p><strong>Descrição:</strong></p>
+            <p class="descricao">{{ $produto->descricao }}</p>
+        @endif
+    </div>
+</div>
+@endsection
+

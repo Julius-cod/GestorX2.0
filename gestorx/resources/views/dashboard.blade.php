@@ -1,76 +1,61 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard - GestorX</title>
-    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-</head>
-<body>
-    <div class="container">
-        <aside class="sidebar">
-            <div class="logo">
-                <img src="{{ asset('images/logo_gestorx.png') }}" alt="GestorX Logo">
-            </div>
-            <nav>
-                <ul>
-                    <li class="active"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                    <li><a href="{{ route('produtos.index') }}">Produtos</a></li>
-                    <li><a href="{{ route('movimentacoes.index')}}">Movimentações</a></li>
-                    <li><a href="{{ route('relatorios.index')}}">Relatórios</a></li>
-                    <li>
+@extends('layouts.app')
 
-                    <div class="user-info">
-                        <p>👤 {{ Auth::user()->name }}</p>
-                        <small>{{ Auth::user()->email }}</small>
-                    </div>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit">LOGOUT</button>
-                        </form>
-                    </li>
-                </ul>
-            </nav>
+@section('title', 'Dashboard')
 
+@section('content')
+<header class="header">
+    <h1>Bem-vindo, {{ Auth::user()->name }}</h1>
+</header>
 
+<!-- RESUMO -->
+<section class="summary">
+    <div class="card"><span>Produtos</span><strong>{{ $totalProdutos }}</strong></div>
+    <div class="card"><span>Estoque</span><strong>{{ number_format($estoqueTotal, 0, ',', '.') }}</strong></div>
+    <div class="card"><span>Entradas</span><strong>{{ $entradas }}</strong></div>
+    <div class="card"><span>Saídas</span><strong>{{ $saidas }}</strong></div>
+</section>
 
-        </aside>
-
-        <main class="content">
-            <header>
-                <h1>Dashboard</h1>
-            </header>
-
-            <section class="cards">
-                <div class="card"><span>PRODUTOS</span><strong>{{ $totalProdutos }}</strong></div>
-                <div class="card"><span>ESTOQUE TOTAL</span><strong>{{ $estoqueTotal }}</strong></div>
-                <div class="card"><span>ENTRADAS</span><strong>{{ $entradas }}</strong></div>
-                <div class="card"><span>SAÍDAS</span><strong>{{ $saidas }}</strong></div>
-            </section>
-
-            <section class="movimentacoes">
-                <h2>Movimentações Recentes</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Produto</th>
-                            <th>Tipo</th>
-                            <th>Quantidade</th>
-                            <th>Data</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($recentes as $m)
-                            <tr>
-                                <td>{{ $m->produto->nome ?? '---' }}</td>
-                                <td class="{{ $m->tipo }}">{{ ucfirst($m->tipo) }}</td>
-                                <td>{{ $m->quantidade }}</td>
-                                <td>{{ $m->created_at->format('d/m/Y') }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </section>
-        </main>
+<!-- GRÁFICOS -->
+<section class="charts">
+    <div class="chart-card">
+        <h2>Estoque por Produto</h2>
+        <canvas id="estoqueChart"></canvas>
     </div>
-</body>
-</html>
+    <div class="chart-card">
+        <h2>Entradas vs Saídas</h2>
+        <canvas id="pieChart"></canvas>
+    </div>
+</section>
+@endsection
+
+@section('scripts')
+<script>
+    // GRÁFICO DE BARRAS
+    new Chart(document.getElementById('estoqueChart'), {
+        type: 'bar',
+        data: {
+            labels: @json($categorias),
+            datasets: [{
+                label: 'Quantidade',
+                data: @json($quantidades),
+                backgroundColor: '#3b82f6',
+                borderRadius: 6
+            }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } } }
+    });
+
+    // GRÁFICO DE PIZZA
+    new Chart(document.getElementById('pieChart'), {
+        type: 'pie',
+        data: {
+            labels: ['Entradas', 'Saídas'],
+            datasets: [{
+                data: [{{ $entradas }}, {{ $saidas }}],
+                backgroundColor: ['#3b82f6', '#ef4444']
+            }]
+        },
+        options: { responsive: true }
+    });
+</script>
+@endsection
