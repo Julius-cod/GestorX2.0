@@ -9,7 +9,7 @@
 @section('content')
 <div class="page-header">
     <h1>Categorias</h1>
-    <a href="{{ route('categorias.create') }}" class="btn btn-primary">Nova Categoria</a>
+    <a href="{{ route('categorias.create') }}" class="btn btn-primary">+ Nova Categoria</a>
 </div>
 
 @if(session('success'))
@@ -22,7 +22,7 @@
     <table class="styled-table">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>#</th>
                 <th>Nome</th>
                 <th style="width: 180px; text-align:center;">Ações</th>
             </tr>
@@ -33,13 +33,13 @@
                     <td>{{ $cat->id }}</td>
                     <td>{{ $cat->nome }}</td>
                     <td class="actions">
-                        <a href="{{ route('categorias.edit', $cat->id) }}" class="btn btn-secondary">Editar</a>
+                        <a href="{{ route('categorias.edit', $cat->id) }}" class="btn btn-secondary">✏️ Editar</a>
                         <form action="{{ route('categorias.destroy', $cat->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger"
                                     onclick="return confirm('Tem certeza que deseja excluir esta categoria?')">
-                                Excluir
+                                🗑️ Excluir
                             </button>
                         </form>
                     </td>

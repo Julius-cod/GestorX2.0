@@ -1,0 +1,80 @@
+/* Relatórios - atualizado para dark/light */
+
+/* Usa as variáveis globais */
+.page-header h1 {
+    color: var(--text-color);
+}
+
+.table-card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    margin-bottom: 2rem;
+    transition: background 0.3s, color 0.3s;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card-bg);
+    color: var(--text-color);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: background 0.3s, color 0.3s;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* mais neutro */
+    text-align: center;
+}
+
+.styled-table th {
+    background: #0ea5e9;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.styled-table tr:nth-child(even) td {
+    background: rgba(255, 255, 255, 0.05);
+    /* funciona no dark e no light */
+}
+
+.no-data {
+    text-align: center;
+    padding: 1rem;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+/* Botões seguem o esquema do global */
+.btn {
+    background: #0ea5e9;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #0284c7;
+}
+
+/* Destaques */
+.entrada {
+    color: #22c55e;
+    /* verde */
+    font-weight: bold;
+}
+
+.saida {
+    color: #ef4444;
+    /* vermelho */
+    font-weight: bold;
+}

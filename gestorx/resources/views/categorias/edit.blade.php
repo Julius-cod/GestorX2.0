@@ -1,25 +1,39 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar Categoria</title>
-    <link rel="stylesheet" href="{{ asset('css/categorias.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h1>Editar Categoria</h1>
+@extends('layouts.app')
 
-        <form action="{{ route('categorias.update', $categoria->id) }}" method="POST">
-            @csrf
-            @method('PUT')
+@section('title', 'GestorX - Editar Categoria')
 
-            <label for="nome">Nome:</label>
-            <input type="text" name="nome" id="nome" value="{{ $categoria->nome }}" required>
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/categorias.css') }}">
+@endpush
 
-            <button type="submit" class="btn">Atualizar</button>
-        </form>
+@section('content')
+<div class="page-header">
+    <h1>Editar Categoria</h1>
+    <a href="{{ route('categorias.index') }}" class="btn btn-secondary">Voltar</a>
+</div>
 
-        <a href="{{ route('categorias.index') }}" class="btn back">Voltar</a>
-    </div>
-</body>
-</html>
+<div class="form-card">
+    <form action="{{ route('categorias.update', $categoria->id) }}" method="POST">
+        @csrf
+        @method('PUT')
+
+        <div class="form-group">
+            <label for="nome">Nome da categoria</label>
+            <input 
+                type="text" 
+                name="nome" 
+                id="nome" 
+                class="form-control" 
+                value="{{ old('nome', $categoria->nome) }}" 
+                required
+            >
+
+            @error('nome')
+                <span class="error">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <button type="submit" class="btn btn-primary">Atualizar</button>
+    </form>
+</div>
+@endsection

@@ -1,66 +1,128 @@
-body {
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
+/* ==========================
+   AUTH PAGES (Login/Register)
+   ========================== */
 
+/* Container principal */
 .auth-container {
-    background: #1e293b;
-    padding: 30px;
-    border-radius: 10px;
-    width: 350px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-}
-
-h2 {
+    max-width: 400px;
+    margin: 5vh auto;
+    padding: 2rem;
+    background: var(--card-bg);
+    color: var(--text-color);
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
     text-align: center;
-    margin-bottom: 20px;
-    color: #38bdf8;
+    transition: background 0.3s, color 0.3s;
 }
 
-form input {
+/* Cabeçalho (logo/nome do sistema) */
+.auth-header .logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #3b82f6;
+    /* azul principal */
+    margin-bottom: 0.2rem;
+}
+
+.auth-header .subtitle {
+    font-size: 0.95rem;
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+}
+
+/* Inputs */
+.auth-form .form-group {
+    margin-bottom: 1rem;
+}
+
+.auth-form input {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: none;
-    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border, #d1d5db);
+    font-size: 0.95rem;
+    background: var(--input-bg, #fff);
+    color: var(--text-color);
+    transition: all 0.2s;
+}
+
+.auth-form input:focus {
     outline: none;
-    font-size: 14px;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
 }
 
-form input[type="text"],
-form input[type="email"],
-form input[type="password"] {
-    background: #334155;
-    color: #fff;
-}
-
-form button {
+/* Botão principal */
+.btn-primary {
     width: 100%;
-    padding: 10px;
-    background: #38bdf8;
-    border: none;
-    border-radius: 6px;
-    color: #0f172a;
+    padding: 0.9rem;
+    font-size: 1rem;
     font-weight: bold;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
-    transition: 0.3s;
-}
-
-form button:hover {
-    background: #0ea5e9;
-}
-
-.error {
-    background: #f87171;
+    background: #3b82f6;
     color: #fff;
-    padding: 8px;
-    border-radius: 6px;
-    margin-bottom: 10px;
-    text-align: center;
+    transition: background 0.3s, transform 0.1s;
+}
+
+.btn-primary:hover {
+    background: #2563eb;
+}
+
+.btn-primary:active {
+    transform: scale(0.97);
+}
+
+/* Caixa de erro */
+.error-box {
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+    padding: 0.8rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.error-box ul {
+    margin: 0;
+    padding-left: 1.2rem;
+}
+
+/* Rodapé */
+.auth-footer {
+    margin-top: 1.2rem;
+    font-size: 0.9rem;
+}
+
+.auth-footer a {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+/* ==========================
+   DARK MODE
+   ========================== */
+body.dark .auth-container {
+    background: #1e293b;
+    color: #f9fafb;
+}
+
+body.dark .auth-form input {
+    background: #374151;
+    border-color: #4b5563;
+    color: #fff;
+}
+
+body.dark .error-box {
+    background: #7f1d1d;
+    border: 1px solid #991b1b;
+    color: #fecaca;
 }

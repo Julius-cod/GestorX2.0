@@ -37,6 +37,11 @@
                     <li class="{{ request()->routeIs('relatorios.*') ? 'active' : '' }}">
                         <i data-lucide="file-text"></i>
                         <a href="{{ route('relatorios.index') }}">Relatórios</a>
+
+                    </li>
+                     <li class="{{ request()->routeIs('categorias.*') ? 'active' : '' }}">
+                        <i data-lucide="file-text"></i>
+                        <a href="{{ route('categorias.index') }}">Categorias</a>
                     </li>
                 </ul>
             </nav>
